@@ -1,0 +1,17 @@
+{
+  "name": "EDC Moments — Ecolab Digital Center Photobooth",
+  "short_name": "EDC Moments",
+  "description": "Capture memories and celebrate innovation at the Ecolab Digital Center.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f8fc",
+  "theme_color": "#0066cc",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
