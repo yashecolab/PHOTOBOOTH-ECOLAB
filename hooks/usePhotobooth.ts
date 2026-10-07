@@ -72,7 +72,7 @@ export function usePhotobooth() {
         const canvas = document.createElement("canvas");
         const sourceWidth = video.videoWidth;
         const sourceHeight = video.videoHeight;
-        const scale = Math.min(1, 800 / sourceWidth);
+        const scale = Math.min(1, 1280 / sourceWidth);
         canvas.width = Math.round(sourceWidth * scale);
         canvas.height = Math.round(sourceHeight * scale);
         const context = canvas.getContext("2d");
@@ -80,7 +80,7 @@ export function usePhotobooth() {
         context.translate(canvas.width, 0);
         context.scale(-1, 1);
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        images.push(canvas.toDataURL("image/jpeg", 0.82));
+        images.push(canvas.toDataURL("image/jpeg", 0.92));
         setCaptured([...images]);
         setFlash(true);
         await wait(410);

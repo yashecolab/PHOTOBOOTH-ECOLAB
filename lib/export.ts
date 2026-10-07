@@ -4,7 +4,7 @@ import { jsPDF } from "jspdf";
 export async function renderElement(element: HTMLElement): Promise<HTMLCanvasElement> {
   return html2canvas(element, {
     backgroundColor: null,
-    scale: 2,
+    scale: 3,
     useCORS: true,
     logging: false
   });
@@ -17,7 +17,7 @@ export async function downloadElement(
 ): Promise<void> {
   const canvas = await renderElement(element);
   const mime = format === "jpg" ? "image/jpeg" : "image/png";
-  const data = canvas.toDataURL(mime, 0.94);
+  const data = canvas.toDataURL(mime, 0.98);
   const link = document.createElement("a");
   link.download = `${filename}.${format}`;
   link.href = data;

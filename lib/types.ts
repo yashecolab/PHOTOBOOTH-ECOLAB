@@ -1,5 +1,11 @@
 export type TemplateId = string;
 
+export type OverlayLayout = {
+  x: number;
+  y: number;
+  width: number;
+};
+
 export type Template = {
   id: TemplateId;
   name: string;
@@ -14,6 +20,7 @@ export type Template = {
   enabled?: boolean;
   builtIn?: boolean;
   overlayUrl?: string;
+  overlayLayout?: OverlayLayout;
 };
 
 export type GalleryItem = {

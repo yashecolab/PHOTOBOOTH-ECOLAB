@@ -61,7 +61,8 @@ function storedTemplate(template: Template): StoredTemplate {
     color: template.color,
     accent: template.accent,
     background: template.background,
-    enabled: template.enabled
+    enabled: template.enabled,
+    ...(template.overlayLayout ? { overlayLayout: { ...template.overlayLayout } } : {})
   };
 }
 

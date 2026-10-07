@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -25,6 +25,7 @@ import type { Template } from "@/lib/types";
 const MAX_FRAME_BYTES = 5 * 1024 * 1024;
 const MAX_FRAME_PIXELS = 16_000_000;
 const pngSignature = [137, 80, 78, 71, 13, 10, 26, 10];
+const DEFAULT_OVERLAY_LAYOUT = { x: 0, y: 0, width: 100 };
 
 function createDraft(name = "New frame"): Template {
   return {
@@ -66,6 +67,8 @@ export function AdminFramesExperience() {
   const [overlayFile, setOverlayFile] = useState<File | null>(null);
   const [removeOverlay, setRemoveOverlay] = useState(false);
   const [uploadPreview, setUploadPreview] = useState("");
+  const overlayPreviewRef = useRef<HTMLDivElement>(null);
+  const overlayDrag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
   const [toast, setToast] = useState("");
@@ -113,6 +116,33 @@ export function AdminFramesExperience() {
     setDraft((current) => ({ ...current, [field]: value }));
   }
 
+  function updateOverlayLayout(change: Partial<NonNullable<Template["overlayLayout"]>>) {
+    setDraft((current) => ({
+      ...current,
+      overlayLayout: { ...DEFAULT_OVERLAY_LAYOUT, ...current.overlayLayout, ...change }
+    }));
+  }
+
+  function beginOverlayDrag(event: React.PointerEvent<HTMLImageElement>) {
+    const layout = draft.overlayLayout ?? DEFAULT_OVERLAY_LAYOUT;
+    overlayDrag.current = { startX: event.clientX, startY: event.clientY, x: layout.x, y: layout.y };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function moveOverlay(event: React.PointerEvent<HTMLImageElement>) {
+    const drag = overlayDrag.current;
+    const stage = overlayPreviewRef.current;
+    if (!drag || !stage) return;
+
+    const bounds = stage.getBoundingClientRect();
+    const imageBounds = event.currentTarget.getBoundingClientRect();
+    const minX = Math.min(0, ((bounds.width * 0.1 - imageBounds.width) / bounds.width) * 100);
+    const minY = Math.min(0, ((bounds.height * 0.1 - imageBounds.height) / bounds.height) * 100);
+    const x = Math.max(minX, Math.min(90, drag.x + ((event.clientX - drag.startX) / bounds.width) * 100));
+    const y = Math.max(minY, Math.min(90, drag.y + ((event.clientY - drag.startY) / bounds.height) * 100));
+    updateOverlayLayout({ x, y });
+  }
+
   async function handleUpload(file: File | undefined) {
     if (!file) return;
     setFormError("");
@@ -147,6 +177,9 @@ export function AdminFramesExperience() {
       subtitle: draft.subtitle.trim(),
       footer: draft.footer.trim(),
       tags,
+      ...(currentOverlay
+        ? { overlayLayout: draft.overlayLayout ?? DEFAULT_OVERLAY_LAYOUT }
+        : {}),
       enabled: draft.enabled !== false
     };
 
@@ -305,7 +338,7 @@ export function AdminFramesExperience() {
             <div className="admin-upload">
               <div className="admin-upload-label">
                 <strong>Transparent PNG overlay</strong>
-                <span>Up to 5 MB · overlays your photos in the final strip</span>
+                <span>Up to 5 MB · drag to position it on the strip</span>
               </div>
               <label className="button button-secondary admin-upload-button">
                 <Upload size={14} /> Choose PNG
@@ -313,7 +346,39 @@ export function AdminFramesExperience() {
               </label>
               {currentOverlay && (
                 <div className="admin-overlay-preview">
-                  <img src={currentOverlay} alt="Preview of transparent frame overlay" />
+                  <div
+                    className="admin-overlay-stage"
+                    ref={overlayPreviewRef}
+                    style={{
+                      "--template-bg": draft.background,
+                      "--template-color": draft.color,
+                      "--template-accent": draft.accent
+                    } as React.CSSProperties}
+                    aria-label="Strip preview with draggable PNG overlay"
+                  >
+                    <div className="admin-overlay-strip">
+                      <strong>{draft.eyebrow || "FRAME HEADER"}</strong>
+                      <b>{draft.title || "Frame title"}</b>
+                      <div className="admin-overlay-photos"><i /><i /><i /><i /></div>
+                      <small>{draft.footer || "Frame footer"}</small>
+                    </div>
+                    <img
+                      src={currentOverlay}
+                      alt="Transparent PNG overlay. Drag to reposition."
+                      draggable={false}
+                      onPointerDown={beginOverlayDrag}
+                      onPointerMove={moveOverlay}
+                      onPointerUp={() => { overlayDrag.current = null; }}
+                      onPointerCancel={() => { overlayDrag.current = null; }}
+                      style={{
+                        left: `${draft.overlayLayout?.x ?? DEFAULT_OVERLAY_LAYOUT.x}%`,
+                        top: `${draft.overlayLayout?.y ?? DEFAULT_OVERLAY_LAYOUT.y}%`,
+                        width: `${draft.overlayLayout?.width ?? DEFAULT_OVERLAY_LAYOUT.width}%`,
+                        right: "auto",
+                        bottom: "auto"
+                      }}
+                    />
+                  </div>
                   <button
                     className="admin-icon-button danger"
                     type="button"
@@ -322,6 +387,17 @@ export function AdminFramesExperience() {
                   >
                     <X size={14} />
                   </button>
+                  <label className="admin-overlay-size">
+                    PNG width: {Math.round(draft.overlayLayout?.width ?? DEFAULT_OVERLAY_LAYOUT.width)}%
+                    <input
+                      type="range"
+                      min="20"
+                      max="100"
+                      step="1"
+                      value={draft.overlayLayout?.width ?? DEFAULT_OVERLAY_LAYOUT.width}
+                      onChange={(event) => updateOverlayLayout({ width: Number(event.target.value) })}
+                    />
+                  </label>
                 </div>
               )}
             </div>

@@ -35,7 +35,7 @@ npm run lint      # Run Next.js ESLint checks
 
 Camera frames are captured in the browser and are not uploaded. Saved gallery images, likes, and theme preference stay in that browser’s local storage; in-progress captures stay in session storage. Clearing browser site data removes the local gallery. Browser storage has finite capacity, so only a limited number of memories are retained.
 
-Frame metadata and uploaded PNG overlays are stored in this browser’s IndexedDB. The `/admin` page is an unlocked, device-local editor; it does not provide administrator authentication or share changes with other devices. Keep frame overlays to 5 MB or less. Clearing browser site data removes locally managed frames and overlays; built-in defaults can be restored from the editor.
+Frame metadata, uploaded PNG overlays, and each overlay’s position and size are stored in this browser’s IndexedDB. In `/admin`, drag the PNG over the strip preview and use the width control to fit it; the saved placement is applied to the booth preview and downloads. The editor is unlocked and device-local; it does not provide administrator authentication or share changes with other devices. Keep frame overlays to 5 MB or less. Clearing browser site data removes locally managed frames and overlays; built-in defaults can be restored from the editor.
 
 The gallery is personal to the current browser, not a shared event feed. QR photo downloads and direct Teams uploads are intentionally not enabled: both require a hosted, cross-device photo URL or an organization-approved sharing integration. The Share button uses the device/browser share sheet when it supports photo files (which may include Teams if installed), and otherwise downloads the image.
 

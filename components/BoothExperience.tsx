@@ -385,16 +385,12 @@ export function BoothExperience() {
                           onPointerCancel={() => { cropDrag.current = null; }}
                           role="group"
                           aria-label={`Photo ${index + 1}. Drag to adjust its crop.`}
+                          style={{
+                            backgroundImage: `url("${photo}")`,
+                            backgroundPosition: `${cropPositions[index]?.x ?? 50}% ${cropPositions[index]?.y ?? 50}%`
+                          }}
                         >
-                          <Image
-                            src={photo}
-                            alt={`Strip photo ${index + 1}`}
-                            width={700}
-                            height={350}
-                            draggable={false}
-                            unoptimized
-                            style={{ objectPosition: `${cropPositions[index]?.x ?? 50}% ${cropPositions[index]?.y ?? 50}%` }}
-                          />
+                          <span className="sr-only">Strip photo {index + 1}</span>
                         </div>
                       ))}
                     </div>
@@ -410,6 +406,15 @@ export function BoothExperience() {
                         height={1800}
                         unoptimized
                         aria-hidden="true"
+                        style={template.overlayLayout ? {
+                          left: `${template.overlayLayout.x}%`,
+                          top: `${template.overlayLayout.y}%`,
+                          width: `${template.overlayLayout.width}%`,
+                          right: "auto",
+                          bottom: "auto",
+                          height: "auto",
+                          objectFit: "contain"
+                        } : undefined}
                       />
                     )}
                   </div>

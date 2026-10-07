@@ -34,6 +34,15 @@ export function TemplateCard({
             height={900}
             unoptimized
             aria-hidden="true"
+            style={template.overlayLayout ? {
+              left: `${template.overlayLayout.x}%`,
+              top: `${template.overlayLayout.y}%`,
+              width: `${template.overlayLayout.width}%`,
+              right: "auto",
+              bottom: "auto",
+              height: "auto",
+              objectFit: "contain"
+            } : undefined}
           />
         )}
         <span className="preview-label">{template.eyebrow}</span>
