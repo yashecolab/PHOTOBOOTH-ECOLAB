@@ -1,0 +1,457 @@
+Act as a Senior Full Stack Engineer, UX Designer, Product Manager, and Creative Director.
+
+Build a production-ready web application called:
+
+"EDC Moments - Ecolab Digital Center Photobooth"
+
+Purpose:
+Create an interactive Photo Booth experience for Ecolab Digital Center employees during team events, celebrations, innovation days, hackathons, trainings, town halls, and office activities.
+
+The application should look modern, premium, corporate, and fun while maintaining Ecolab branding.
+
+====================================================
+TECH STACK
+====================================================
+
+Frontend:
+- Next.js 14 App Router
+- React
+- Tailwind CSS
+- TypeScript
+- Framer Motion
+
+Camera:
+- Browser Webcam API
+- navigator.mediaDevices.getUserMedia()
+
+Image Processing:
+- html2canvas
+- Fabric.js
+
+Download:
+- PNG
+- JPG
+- PDF
+
+Deployment:
+- Vercel
+
+====================================================
+PROJECT STRUCTURE
+====================================================
+
+ecolab-photobooth/
+│
+├── pages/
+│   ├── index.jsx
+│   ├── camera.jsx
+│   ├── gallery.jsx
+│
+├── components/
+│   ├── WebcamCapture.jsx
+│   ├── Countdown.jsx
+│   ├── TemplateSelector.jsx
+│   ├── PhotoStrip.jsx
+│
+├── public/
+│   ├── templates/
+│   ├── stickers/
+│   └── logos/
+│
+├── styles/
+│   └── globals.css
+│
+├── utils/
+│   └── imageGenerator.js
+│
+├── hooks/
+│   └── usePhotobooth.js
+│
+└── services/
+    └── exportService.js
+
+====================================================
+DESIGN SYSTEM
+====================================================
+
+Primary Color:
+#0066CC
+
+Secondary:
+#00A3E0
+
+Accent:
+#00C853
+
+Background:
+#F4F8FC
+
+Text:
+#12263A
+
+Typography:
+- Inter
+- Poppins
+
+Design Style:
+- Glassmorphism
+- Soft Shadows
+- Rounded Corners
+- Corporate + Fun
+- Clean White Background
+- Blue Gradients
+- Apple-quality UI
+
+Animations:
+- Smooth Page Transitions
+- Camera Flash Effect
+- Countdown Animations
+- Download Success Animations
+- Hover Effects
+
+====================================================
+LANDING PAGE
+====================================================
+
+Create a modern hero section featuring:
+
+Title:
+"Ecolab Digital Center Photobooth"
+
+Subtitle:
+Capture Memories.
+Celebrate Innovation.
+Share Moments.
+
+CTA Buttons:
+
+- Start Photo Booth
+- View Gallery
+
+Hero Background:
+- Blue gradients
+- Floating photostrips
+- Tech-inspired graphics
+- Data analytics icons
+
+Add sections:
+
+1. How it Works
+2. Available Templates
+3. Recent Memories
+4. Footer
+
+====================================================
+PHOTO BOOTH FLOW
+====================================================
+
+Step 1:
+Select Frame
+
+Step 2:
+Allow Camera Access
+
+Step 3:
+Automatically Capture 4 Photos
+
+Step 4:
+Create Photostrip
+
+Step 5:
+Preview
+
+Step 6:
+Download
+
+====================================================
+CAMERA EXPERIENCE
+====================================================
+
+Webcam view
+
+Features:
+- Live Preview
+- Countdown Timer
+- Auto Capture
+- Retake Option
+- Flash Animation
+- Progress Indicator
+
+Photo Capture Sequence:
+
+Photo 1
+3..2..1.. Capture
+
+Photo 2
+3..2..1.. Capture
+
+Photo 3
+3..2..1.. Capture
+
+Photo 4
+3..2..1.. Capture
+
+====================================================
+PHOTO REVIEW PAGE
+====================================================
+
+Display:
+
+Your Moments
+
+Grid Layout:
+
+Photo 1     Photo 2
+
+Photo 3     Photo 4
+
+Buttons:
+
+Back
+Retake
+Generate Strip
+
+====================================================
+PHOTO STRIP GENERATOR
+====================================================
+
+Generate a vertical photostrip.
+
+Layout:
+
+Header
+4 Photos
+Footer
+
+Allow:
+- Drag and crop
+- Apply stickers
+- Add Employee Name
+- Add Event Name
+- Add Date
+
+Download as PNG
+
+====================================================
+FRAME TEMPLATES
+====================================================
+
+Create 5 fully designed templates.
+
+----------------------------------------------------
+TEMPLATE 1
+Corporate Ecolab
+----------------------------------------------------
+
+Header:
+ECOLAB
+DIGITAL CENTER
+
+Footer:
+#EDCMoments
+Bangalore, India
+
+Theme:
+Professional
+Blue and White
+
+----------------------------------------------------
+TEMPLATE 2
+Data Engineering
+----------------------------------------------------
+
+Header:
+DATA ENGINEERING DAY
+
+Decorations:
+Databricks
+Delta Lake
+Spark
+Azure
+Pipelines
+
+Footer:
+Build. Transform. Innovate.
+
+----------------------------------------------------
+TEMPLATE 3
+AI & Innovation
+----------------------------------------------------
+
+Header:
+AI INNOVATION FEST
+
+Decorations:
+AI Icons
+Machine Learning
+Digital Transformation
+Cloud
+
+Footer:
+Innovating Together
+
+----------------------------------------------------
+TEMPLATE 4
+Team Celebration
+----------------------------------------------------
+
+Header:
+TEAM CELEBRATION
+
+Decorations:
+Confetti
+Light Bulbs
+Balloons
+
+Footer:
+One Team One Goal
+
+----------------------------------------------------
+TEMPLATE 5
+Hackathon
+----------------------------------------------------
+
+Header:
+EDC HACKATHON
+
+Decorations:
+Code
+Terminal
+API
+Cloud
+Robots
+
+Footer:
+Code Create Conquer
+
+====================================================
+STICKER LIBRARY
+====================================================
+
+Categories:
+
+Technology:
+- AI
+- Cloud
+- Data
+- SQL
+- Analytics
+
+Celebration:
+- Trophy
+- Confetti
+- Stars
+- Balloons
+
+Ecolab:
+- Logo
+- Innovation
+- People
+- Sustainability
+
+====================================================
+GALLERY PAGE
+====================================================
+
+Masonry Layout
+
+Features:
+
+- Search
+- Filter by Event
+- Download Again
+- Like Photos
+- Share
+
+====================================================
+MOBILE RESPONSIVE
+====================================================
+
+Fully optimize for:
+
+Desktop
+Tablet
+Mobile
+
+Target:
+
+iPhone
+Android
+Windows Laptops
+MacBooks
+
+====================================================
+ACCESSIBILITY
+====================================================
+
+Include:
+
+ARIA Labels
+Keyboard Navigation
+Screen Reader Support
+
+====================================================
+ADVANCED FEATURES
+====================================================
+
+1. QR Download Link
+
+2. Instant Share
+
+3. Teams Share Button
+
+4. Event Selector
+
+5. Custom Employee Name
+
+6. Event Branding
+
+7. Dark Mode
+
+8. Light Mode
+
+9. Offline Support
+
+10. Progressive Web App
+
+====================================================
+MOCK DATA
+====================================================
+
+Generate sample events:
+
+Innovation Day 2026
+Data Engineering Summit
+Hackathon 2026
+Team Outing
+Townhall
+
+====================================================
+GENERATE
+====================================================
+
+Provide:
+
+1. Complete code
+2. Component code
+3. Folder structure
+4. Tailwind config
+5. Reusable hooks
+6. Utility functions
+7. Responsive layouts
+8. Production-ready styling
+9. Export functionality
+10. Deployment instructions
+
+Create all files with actual working code, not pseudocode.
+The application should be immediately runnable with:
+npm install
+npm run dev
+
+Generate clean scalable enterprise-grade code.
+
+Create an admin pagewhere admin can creaate or upload frames or edit existing ones . I will share you the assest of ecolab thay uou can actually add into it okay
+
+let the png template be movbale and adjustable for proper formating of strips and also let it gavet saved locally whne created new frames.
+
+After the strips generated while downloading the photos are been streteched little where the quality goes down . Fix those issue and dont change anything else rather than the issue mentioned. Rest is good.
